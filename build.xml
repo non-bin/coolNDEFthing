@@ -10,6 +10,12 @@
     <property name="sdk.globalplatform" value="ext/globalplatform-exports"/>
     <property name="sdk.jc" value="ext/javacard-sdks/jc310r20210706_kit"/>
 
+    <property name="aid.prefix"     value="D2760001771002110"/>
+    <property name="aid.full"       value="10001"/>
+    <property name="aid.stub"       value="20001"/>
+    <property name="aid.tiny"       value="30001"/>
+    <property name="aid.advanced"   value="40001"/>
+
     <!-- Cleanup target -->
     <target name="clean" description="Delete build output">
         <delete dir="build"/>
@@ -58,9 +64,9 @@
                  jar="build/javacard/openjavacard-ndef-advanced.jar"
                  classes="build/classes/advanced"
                  sources="applet-advanced/src/main/java"
-                 aid="D276000177100211040001"
+                 aid="${aid.prefix}${aid.advanced}"
                  version="0.0">
-                <applet aid="D27600017710021104000101"
+                <applet aid="${aid.prefix}${aid.advanced}01"
                         class="org.openjavacard.ndef.advanced.NdefApplet"/>
                 <import jar="${sdk.globalplatform}/org.globalplatform-1.1/gpapi-globalplatform.jar"
                         exps="${sdk.globalplatform}/org.globalplatform-1.1/exports"/>
@@ -74,9 +80,9 @@
                  jar="build/javacard/openjavacard-ndef-full.jar"
                  classes="build/classes/full"
                  sources="applet-full/src/main/java"
-                 aid="D276000177100211010001"
+                 aid="${aid.prefix}${aid.full}"
                  version="0.0">
-                <applet aid="D27600017710021101000101"
+                <applet aid="${aid.prefix}${aid.full}01"
                         class="org.openjavacard.ndef.full.NdefApplet"/>
             </cap>
         </javacard>
@@ -88,9 +94,9 @@
                  jar="build/javacard/openjavacard-ndef-tiny.jar"
                  classes="build/classes/tiny"
                  sources="applet-tiny/src/main/java"
-                 aid="D276000177100211030001"
+                 aid="${aid.prefix}${aid.tiny}"
                  version="0.0">
-                <applet aid="D27600017710021103000101"
+                <applet aid="${aid.prefix}${aid.tiny}01"
                         class="org.openjavacard.ndef.tiny.NdefApplet"/>
             </cap>
         </javacard>
@@ -102,9 +108,9 @@
                  jar="build/javacard/openjavacard-ndef-stub.jar"
                  classes="build/classes/stub"
                  sources="applet-stub/src/main/java"
-                 aid="D276000177100211020001"
+                 aid="${aid.prefix}${aid.stub}"
                  version="0.0">
-                <applet aid="D27600017710021102000101"
+                <applet aid="${aid.prefix}${aid.stub}01"
                         class="org.openjavacard.ndef.stub.NdefApplet"/>
             </cap>
         </javacard>
