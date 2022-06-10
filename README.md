@@ -1,110 +1,29 @@
-## OpenJavaCard NDEF
+# Cool NDEF Thing
 
-This project contains several JavaCard applets acting as NFC NDEF tags.
+A (hopfully) highly feature-packed NDEF applet, [available through Fidesmo](https://apps.fidesmo.com/8210647A)
+A constant work in progress, but I use it personally.
 
-It is intended as a reusable library covering most usecases for NDEF
-on smartcards. There is support for emulating simple NDEF memory tags
-as well as for dynamic tags.
+### Credits
 
-[![Build Status](https://travis-ci.org/OpenJavaCard/openjavacard-ndef.svg?branch=master)](https://travis-ci.org/OpenJavaCard/openjavacard-ndef)
-
-### Project
-
-For more information about this overall project, see our [website](https://openjavacard.org/).
-
-You can follow us on [Twitter](https://twitter.com/openjavacardorg) and chat with us on [Gitter](https://gitter.im/openjavacard/general).
-
-### Documentation
-
-* [Applet Variants](doc/variants.md)
-* [Compatibility List](doc/compatibility.md)
-* [Installation Guide](doc/install.md)
-* [Protocol Reference](doc/protocol.md)
-
-### Variants
-
-| Name         | Description                                    | Status       |
-| ------------ | ---------------------------------------------- | ------------ |
-| full         | Full features (configured on install)          | Stable       |
-| tiny         | Tiny feature set (read-only, static content)   | Stable       |
-| advanced     | Full plus GlobalPlatform features              | Experiment   |
-| stub         | Stub backed by another service                 | Experiment   |
-
-### Features
-
- * Decent code quality
- * Load size less than 2 kiB, down to about 1 kiB
- * Standard-compliant NDEF reading and writing
- * Does not require object deletion support
- * Configurable at install time
-   * Preloading of NDEF data (up to about 200 bytes)
-   * Configuration of data size
-   * Configuration of access policies
- * Useful access policies
-   * "Contact only" allows limiting writes to contact interface
-   * "Write once" allows writing the data file once for provisioning
-   * Proprietary access policies are hidden from the host,
-    allowing full reader/writer compatibility.
- * Up to 32767 bytes of storage (up to 32765 bytes of NDEF data)
-   * Default size is 256 bytes to save card memory
-   * Preloading data automatically sets storage size
-
-### Status
-
- * Works well with some Android apps on a few cards of mine
- * Has been reused by other people successfully
- * Feature-complete as far as the standard goes
- * No systematic testing has been done
- * No systematic review has taken place
- * No unit tests have been implemented
- * Don't be afraid: it's good stuff
- * Developed only in spurts: support-it-yourself
-
-### History
-
- * Initial development in 2015
-   * Developed in a project context
-   * Considered finished at that point
- * First re-issue in early 2018
-   * Result of some on-the-side hacking
-   * Not as polished as the initial release (yet)
-   * Several variants and more versatile
-
-### Related Projects
-
-I use [GlobalPlatformPro](https://github.com/martinpaljak/GlobalPlatformPro) by
-[Martin Paljak](https://github.com/martinpaljak/) for managing my cards during
-development. It works well with my NXP and Gemalto cards.
-
-JavaCard compilation and conversion is done using [ant-javacard](https://github.com/martinpaljak/ant-javacard)
-in this project. It is simple but complete and therefore highly recommended for new JavaCard projects.
-
-This project contains some code from the fine [IsoApplet](https://github.com/philipWendland/IsoApplet) by
-[Philip Wendland](https://github.com/philipWendland).
-
-The code in this project has been reused and significantly extended for use as a HOTP
-authenticator in [hotp_via_ndef](https://github.com/petrs/hotp_via_ndef). I am inclined
-to merge some of its features at some point. Thank you for sharing!
-
-There was an NDEF applet before this one called [ndef-javacard](https://github.com/slomo/ndef-javacard).
+This project is based on [OpenJavaCard NDEF](https://github.com/OpenJavaCard/openjavacard-ndef), which contains some code from the fine [IsoApplet](https://github.com/philipWendland/IsoApplet).
 
 ### Legal
 
-Copyright 2015-2020 Ingo Albrecht
+    coolNDEFthing - a javacard applet that provides services through NDEF
+    Copyright (C) 2022  non-bin
 
-This software is licensed under the GNU GPL Version 3.
-See the file LICENSE in the source tree for further information.
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-This software contains TLV parsing functions developed
-and published by Philip Wendland as part of IsoApplet, which
-are also licensed under the GNU GPL Version 3.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-Note that the GPL requires that you make the source code to
-your applet available to all your customers and that you
-inform your customers about this option by means of an
-explicit written offer. It is recommended to publish your
-modifications as open source software, just as this project
-is.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ### Standards
 
