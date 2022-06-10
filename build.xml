@@ -8,7 +8,8 @@
     <property name="ext.ant-javacard" value="ext/ant-javacard"/>
 
     <property name="sdk.globalplatform" value="ext/globalplatform-exports"/>
-    <property name="sdk.jc" value="ext/javacard-sdks/jc310r20210706_kit"/>
+    <property name="sdk.jckit" value="ext/javacard-sdks/jc305u3_kit"/>
+    <property name="sdk.jctarget" value="ext/javacard-sdks/jc304_kit"/>
 
     <property name="aid.prefix"     value="D2760001771002110"/>
     <property name="aid.full"       value="10001"/>
@@ -59,8 +60,9 @@
     </target>
 
     <target name="build-advanced">
-        <javacard jckit="${sdk.jc}">
-            <cap output="build/javacard/openjavacard-ndef-advanced.cap"
+        <javacard jckit="${sdk.jckit}">
+            <cap targetsdk="${sdk.jctarget}"
+                 output="build/javacard/openjavacard-ndef-advanced.cap"
                  jar="build/javacard/openjavacard-ndef-advanced.jar"
                  classes="build/classes/advanced"
                  sources="applet-advanced/src/main/java"
@@ -75,8 +77,9 @@
     </target>
 
     <target name="build-full">
-        <javacard jckit="${sdk.jc}">
-            <cap output="build/javacard/openjavacard-ndef-full.cap"
+        <javacard jckit="${sdk.jckit}">
+            <cap targetsdk="${sdk.jctarget}"
+                 output="build/javacard/openjavacard-ndef-full.cap"
                  jar="build/javacard/openjavacard-ndef-full.jar"
                  classes="build/classes/full"
                  sources="applet-full/src/main/java"
@@ -89,8 +92,9 @@
     </target>
 
     <target name="build-tiny">
-        <javacard jckit="${sdk.jc}">
-            <cap output="build/javacard/openjavacard-ndef-tiny.cap"
+        <javacard jckit="${sdk.jckit}">
+            <cap targetsdk="${sdk.jctarget}"
+                 output="build/javacard/openjavacard-ndef-tiny.cap"
                  jar="build/javacard/openjavacard-ndef-tiny.jar"
                  classes="build/classes/tiny"
                  sources="applet-tiny/src/main/java"
@@ -103,8 +107,9 @@
     </target>
 
     <target name="build-stub">
-        <javacard jckit="${sdk.jc}">
-            <cap output="build/javacard/openjavacard-ndef-stub.cap"
+        <javacard jckit="${sdk.jckit}">
+            <cap targetsdk="${sdk.jctarget}"
+                 output="build/javacard/openjavacard-ndef-stub.cap"
                  jar="build/javacard/openjavacard-ndef-stub.jar"
                  classes="build/classes/stub"
                  sources="applet-stub/src/main/java"
