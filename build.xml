@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="coolNDEFthing"
-         default="build"
+         default="default"
          basedir=".">
 
     <description>JavaCard implementation of an NDEF Type 4 tag, plus some extras</description>
@@ -12,30 +12,44 @@
     <property name="sdk.jctarget" value="ext/javacard-sdks/jc304_kit"/>
 
     <property name="aid.NDEF" value="D2760000850101"/>
+    <property name="fidesmo.appID" value="8210647A"/>
 
-    <!-- Cleanup target -->
+    <taskdef name="javacard"
+             classpath="${ext.ant-javacard}/ant-javacard.jar"
+             classname="pro.javacard.ant.JavaCard"/>
+
+    <target name="default">
+        <antcall target="prepare" />
+        <antcall target="build" />
+        <antcall target="deploy" />
+    </target>
+
     <target name="clean" description="Delete build output">
         <delete dir="build"/>
         <delete dir="ext/ant-javacard"/>
+        <delete dir="ext/fidesmo"/>
     </target>
 
-    <!-- Prepare build tools and directories -->
     <target name="prepare" description="Prepare build">
         <mkdir dir="build/javacard"/>
         <mkdir dir="ext/ant-javacard"/>
+        <mkdir dir="ext/fidesmo"/>
 
-        <get src="https://github.com/martinpaljak/ant-javacard/releases/latest/download/ant-javacard.jar" dest="ext/ant-javacard/ant-javacard.jar" skipexisting="true"/>
-        <taskdef name="javacard"
-                 classpath="${ext.ant-javacard}/ant-javacard.jar"
-                 classname="pro.javacard.ant.JavaCard"/>
+        <get src="https://github.com/martinpaljak/ant-javacard/releases/latest/download/ant-javacard.jar" verbose="on" dest="ext/ant-javacard/ant-javacard.jar" skipexisting="true"/>
+        <get src="https://github.com/fidesmo/fdsm/releases/latest/download/fdsm.jar" verbose="on" dest="ext/fidesmo/fdsm.jar" skipexisting="true"/>
     </target>
 
-    <!-- Build-all target -->
-    <target name="build" description="Build everything" depends="prepare">
-        <antcall target="build-main"/>
+    <target name="deploy" description="Deploy to Fidesmo">
+        <java jar="ext/fidesmo/fdsm.jar"
+              fork="true">
+            <arg line="--verbose"/>
+            <arg line="--app-id ${fidesmo.appID}"/>
+            <arg line="--upload"/>
+            <arg path="./build/main.cap"/>
+        </java>
     </target>
 
-    <target name="build-main">
+    <target name="build">
         <javacard jckit="${sdk.jckit}">
             <cap targetsdk="${sdk.jctarget}"
                  output="build/main.cap"
