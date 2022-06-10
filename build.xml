@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="javacard-ndef"
+<project name="coolNDEFthing"
          default="build"
          basedir=".">
 
-    <description>JavaCard implementation of an NDEF Type 4 tag</description>
+    <description>JavaCard implementation of an NDEF Type 4 tag, plus some extras</description>
 
     <property name="ext.ant-javacard" value="ext/ant-javacard"/>
 
@@ -11,11 +11,7 @@
     <property name="sdk.jckit" value="ext/javacard-sdks/jc305u3_kit"/>
     <property name="sdk.jctarget" value="ext/javacard-sdks/jc304_kit"/>
 
-    <property name="aid.prefix"     value="D2760001771002110"/>
-    <property name="aid.full"       value="10001"/>
-    <property name="aid.stub"       value="20001"/>
-    <property name="aid.tiny"       value="30001"/>
-    <property name="aid.advanced"   value="40001"/>
+    <property name="aid.NDEF" value="D2760000850101"/>
 
     <!-- Cleanup target -->
     <target name="clean" description="Delete build output">
@@ -26,10 +22,6 @@
     <!-- Prepare build tools and directories -->
     <target name="prepare" description="Prepare build">
         <mkdir dir="build/javacard"/>
-        <mkdir dir="build/classes/advanced"/>
-        <mkdir dir="build/classes/full"/>
-        <mkdir dir="build/classes/stub"/>
-        <mkdir dir="build/classes/tiny"/>
         <mkdir dir="ext/ant-javacard"/>
 
         <get src="https://github.com/martinpaljak/ant-javacard/releases/latest/download/ant-javacard.jar" dest="ext/ant-javacard/ant-javacard.jar" skipexisting="true"/>
@@ -40,85 +32,20 @@
 
     <!-- Build-all target -->
     <target name="build" description="Build everything" depends="prepare">
-        <antcall target="build-advanced"/>
-        <antcall target="build-full"/>
-        <antcall target="build-tiny"/>
-        <antcall target="build-stub"/>
+        <antcall target="build-main"/>
     </target>
 
-	<!-- Dummy test target -->
-	<target name="test" description="Run tests" depends="build"/>
-
-    <!-- Target for updating in-repository prebuilt files -->
-    <target name="prebuilt"
-            description="Update prebuilt files"
-            depends="build">
-        <delete dir="prebuilt"/>
-        <copy todir="prebuilt">
-            <fileset dir="build/javacard"/>
-        </copy>
-    </target>
-
-    <target name="build-advanced">
+    <target name="build-main">
         <javacard jckit="${sdk.jckit}">
             <cap targetsdk="${sdk.jctarget}"
-                 output="build/javacard/openjavacard-ndef-advanced.cap"
-                 jar="build/javacard/openjavacard-ndef-advanced.jar"
-                 classes="build/classes/advanced"
-                 sources="applet-advanced/src/main/java"
-                 aid="${aid.prefix}${aid.advanced}"
-                 version="0.0">
-                <applet aid="${aid.prefix}${aid.advanced}01"
-                        class="org.openjavacard.ndef.advanced.NdefApplet"/>
-                <import jar="${sdk.globalplatform}/org.globalplatform-1.1/gpapi-globalplatform.jar"
-                        exps="${sdk.globalplatform}/org.globalplatform-1.1/exports"/>
+                 output="build/main.cap"
+                 jar="build/main.jar"
+                 sources="src/main/java"
+                 aid="${aid.NDEF}"
+                 version="1.0">
+                <applet aid="${aid.NDEF}01"
+                        class="au.net.jacka.coolNDEFthing.NdefApplet"/>
             </cap>
         </javacard>
     </target>
-
-    <target name="build-full">
-        <javacard jckit="${sdk.jckit}">
-            <cap targetsdk="${sdk.jctarget}"
-                 output="build/javacard/openjavacard-ndef-full.cap"
-                 jar="build/javacard/openjavacard-ndef-full.jar"
-                 classes="build/classes/full"
-                 sources="applet-full/src/main/java"
-                 aid="${aid.prefix}${aid.full}"
-                 version="0.0">
-                <applet aid="${aid.prefix}${aid.full}01"
-                        class="org.openjavacard.ndef.full.NdefApplet"/>
-            </cap>
-        </javacard>
-    </target>
-
-    <target name="build-tiny">
-        <javacard jckit="${sdk.jckit}">
-            <cap targetsdk="${sdk.jctarget}"
-                 output="build/javacard/openjavacard-ndef-tiny.cap"
-                 jar="build/javacard/openjavacard-ndef-tiny.jar"
-                 classes="build/classes/tiny"
-                 sources="applet-tiny/src/main/java"
-                 aid="${aid.prefix}${aid.tiny}"
-                 version="0.0">
-                <applet aid="${aid.prefix}${aid.tiny}01"
-                        class="org.openjavacard.ndef.tiny.NdefApplet"/>
-            </cap>
-        </javacard>
-    </target>
-
-    <target name="build-stub">
-        <javacard jckit="${sdk.jckit}">
-            <cap targetsdk="${sdk.jctarget}"
-                 output="build/javacard/openjavacard-ndef-stub.cap"
-                 jar="build/javacard/openjavacard-ndef-stub.jar"
-                 classes="build/classes/stub"
-                 sources="applet-stub/src/main/java"
-                 aid="${aid.prefix}${aid.stub}"
-                 version="0.0">
-                <applet aid="${aid.prefix}${aid.stub}01"
-                        class="org.openjavacard.ndef.stub.NdefApplet"/>
-            </cap>
-        </javacard>
-    </target>
-
 </project>
