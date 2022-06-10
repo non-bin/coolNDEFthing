@@ -1,7 +1,0 @@
-org.openjavacard.ndef.tiny.NdefApplet -> tiny.A:
-    short selectedFile -> a
-    byte[] capsFile -> b
-    byte[] dataFile -> c
-    void install(byte[],short,byte) -> install
-    void <init>(byte[],short,byte) -> <init>
-    void process(javacard.framework.APDU) -> process
