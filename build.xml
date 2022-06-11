@@ -23,11 +23,11 @@
         <delete dir="ext/ant-javacard"/>
         <delete dir="ext/fidesmo"/>
 
-        <mkdir dir="build/javacard"/>
-        <mkdir dir="ext/ant-javacard"/>
+        <mkdir dir="build"/>
     </target>
 
     <target name="ant-javacard" description="Include ant-javacard">
+        <mkdir dir="ext/ant-javacard"/>
         <get src="https://github.com/martinpaljak/ant-javacard/releases/latest/download/ant-javacard.jar" verbose="on" dest="ext/ant-javacard/ant-javacard.jar" skipexisting="true"/>
         <taskdef name="javacard"
                  classpath="${ext.ant-javacard}/ant-javacard.jar"

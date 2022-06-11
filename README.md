@@ -3,7 +3,21 @@
 A (hopfully) highly feature-packed NDEF applet, [available through Fidesmo](https://apps.fidesmo.com/8210647A)
 A constant work in progress, but I use it personally.
 
-### Credits
+## Building
+
+Install [Apache Ant](https://ant.apache.org/) from the wesite or through your package manager, change any properties at the top of build.xml, then run:
+````
+ant clean
+ant build
+````
+
+The resulting cap file will be at `build/main.cap`.
+
+The main ant targets are:
+
+ - `clean`: Delete build files and extensions
+ - `build`: Build the applet (download ant-javacard if nesssary)
+ - `deploy`: Deploy the applet to Fidesmo, requires the FIDESMO_AUTH env variable (download fdsm if nesssary)
 
 This project is based on [OpenJavaCard NDEF](https://github.com/OpenJavaCard/openjavacard-ndef), which contains some code from the fine [IsoApplet](https://github.com/philipWendland/IsoApplet).
 
