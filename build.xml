@@ -5,41 +5,39 @@
 
     <description>JavaCard implementation of an NDEF Type 4 tag, plus some extras</description>
 
-    <property name="ext.ant-javacard" value="ext/ant-javacard"/>
-
-    <property name="sdk.globalplatform" value="ext/globalplatform-exports"/>
-    <property name="sdk.jckit" value="ext/javacard-sdks/jc305u3_kit"/>
-    <property name="sdk.jctarget" value="ext/javacard-sdks/jc304_kit"/>
-
     <property name="aid.NDEF" value="D2760000850101"/>
     <property name="fidesmo.appID" value="8210647A"/>
 
-    <taskdef name="javacard"
-             classpath="${ext.ant-javacard}/ant-javacard.jar"
-             classname="pro.javacard.ant.JavaCard"/>
+    <property name="ext.ant-javacard" value="ext/ant-javacard"/>
+    <property name="sdk.jckit" value="ext/javacard-sdks/jc310r20210706_kit"/>
+    <property name="sdk.jctarget" value="ext/javacard-sdks/jc304_kit"/>
 
     <target name="default">
-        <antcall target="prepare" />
         <antcall target="build" />
-        <antcall target="deploy" />
     </target>
 
-    <target name="clean" description="Delete build output">
+    <target name="clean" description="Delete build output and downloaded libs">
         <delete dir="build"/>
         <delete dir="ext/ant-javacard"/>
         <delete dir="ext/fidesmo"/>
-    </target>
 
-    <target name="prepare" description="Prepare build">
         <mkdir dir="build/javacard"/>
         <mkdir dir="ext/ant-javacard"/>
-        <mkdir dir="ext/fidesmo"/>
+    </target>
 
+    <target name="ant-javacard" description="Include ant-javacard">
         <get src="https://github.com/martinpaljak/ant-javacard/releases/latest/download/ant-javacard.jar" verbose="on" dest="ext/ant-javacard/ant-javacard.jar" skipexisting="true"/>
+        <taskdef name="javacard"
+                 classpath="${ext.ant-javacard}/ant-javacard.jar"
+                 classname="pro.javacard.ant.JavaCard"/>
+    </target>
+
+    <target name="fdsm" description="Include fdsm">
+        <mkdir dir="ext/fidesmo"/>
         <get src="https://github.com/fidesmo/fdsm/releases/latest/download/fdsm.jar" verbose="on" dest="ext/fidesmo/fdsm.jar" skipexisting="true"/>
     </target>
 
-    <target name="deploy" description="Deploy to Fidesmo">
+    <target name="deploy" description="Deploy to Fidesmo" depends="fdsm">
         <java jar="ext/fidesmo/fdsm.jar"
               fork="true">
             <arg line="--verbose"/>
@@ -49,12 +47,12 @@
         </java>
     </target>
 
-    <target name="build">
+    <target name="build" depends="ant-javacard">
         <javacard jckit="${sdk.jckit}">
             <cap targetsdk="${sdk.jctarget}"
                  output="build/main.cap"
                  jar="build/main.jar"
-                 sources="src/main/java"
+                 sources="src"
                  aid="${aid.NDEF}"
                  version="1.0">
                 <applet aid="${aid.NDEF}01"

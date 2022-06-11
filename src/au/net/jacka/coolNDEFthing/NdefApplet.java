@@ -80,8 +80,8 @@ public final class NdefApplet extends Applet {
     private static final byte CC_LEN_NDEF_FILE_CONTROL = 6;
 
     /* Constants related to file control data in capabilities */
-    private static final byte FC_OFF_FILE_ID      = 0x00;
-    private static final byte FC_OFF_SIZE         = 0x02;
+    // private static final byte FC_OFF_FILE_ID      = 0x00;
+    // private static final byte FC_OFF_SIZE         = 0x02;
     private static final byte FC_OFF_READ_ACCESS  = 0x04;
     private static final byte FC_OFF_WRITE_ACCESS = 0x05;
 
@@ -182,7 +182,7 @@ public final class NdefApplet extends Applet {
         pos += lenAID;
         // find control information (ignored)
         byte  lenCI = buf[pos++];
-        short offCI = pos;
+        // short offCI = pos;
         pos += lenCI;
         // find applet data
         byte  lenAD = buf[pos++];
