@@ -8,9 +8,11 @@
     <property name="aid.NDEF" value="D2760000850101"/>
     <property name="fidesmo.appID" value="8210647A"/>
 
-    <property name="ext.ant-javacard" value="ext/ant-javacard"/>
     <property name="sdk.jckit" value="ext/javacard-sdks/jc310r20210706_kit"/>
     <property name="sdk.jctarget" value="ext/javacard-sdks/jc304_kit"/>
+    <!-- Remember to update the java project referenced libraries -->
+
+    <property name="ext.ant-javacard" value="ext/ant-javacard"/>
 
     <target name="default">
         <antcall target="build" />
