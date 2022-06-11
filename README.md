@@ -3,11 +3,28 @@
 A (hopfully) highly feature-packed NDEF applet, [available through Fidesmo](https://apps.fidesmo.com/8210647A)
 A constant work in progress, but I use it personally.
 
-### Credits
+## Building
 
-This project is based on [OpenJavaCard NDEF](https://github.com/OpenJavaCard/openjavacard-ndef), which contains some code from the fine [IsoApplet](https://github.com/philipWendland/IsoApplet).
+Install [Apache Ant](https://ant.apache.org/) from the wesite or through your package manager, change any properties at the top of build.xml, then run:
+````
+ant clean
+ant build
+````
 
-### Legal
+The resulting cap file will be at `build/main.cap`.
+
+The main ant targets are:
+
+ - `clean`: Delete build files and extensions
+ - `build`: Build the applet (download ant-javacard if nesssary)
+ - `deploy`: Deploy the applet to Fidesmo, requires the FIDESMO_AUTH env variable (download fdsm if nesssary)
+
+## Credits
+
+ - Based on [OpenJavaCard NDEF](https://github.com/OpenJavaCard/openjavacard-ndef), which contains some code from the fine [IsoApplet by philipWendland](https://github.com/philipWendland/IsoApplet)
+ - Uses code from [htop_via_ndef by Petris](https://github.com/petrs/hotp_via_ndef)
+
+## Legal
 
     coolNDEFthing - a javacard applet that provides services through NDEF
     Copyright (C) 2022  non-bin
@@ -24,10 +41,3 @@ This project is based on [OpenJavaCard NDEF](https://github.com/OpenJavaCard/ope
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-### Standards
-
-The applet is intended to comply with the following standards, where applicable:
- * ISO 7816-4 Organization, security and commands for interchange (Release 2013)
- * GlobalPlatform Card Specification (Version 2.1)
- * NFC Forum Type 4 Tag Operation Specification (Version 2.0)
