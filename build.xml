@@ -22,11 +22,10 @@
         <delete dir="build"/>
         <delete dir="ext/ant-javacard"/>
         <delete dir="ext/fidesmo"/>
-
-        <mkdir dir="build"/>
     </target>
 
-    <target name="ant-javacard" description="Include ant-javacard">
+    <target name="prepare-build">
+        <mkdir dir="build"/>
         <mkdir dir="ext/ant-javacard"/>
         <get src="https://github.com/martinpaljak/ant-javacard/releases/latest/download/ant-javacard.jar" verbose="on" dest="ext/ant-javacard/ant-javacard.jar" skipexisting="true"/>
         <taskdef name="javacard"
@@ -49,11 +48,10 @@
         </java>
     </target>
 
-    <target name="build" depends="ant-javacard">
+    <target name="build" depends="prepare-build">
         <javacard jckit="${sdk.jckit}">
             <cap targetsdk="${sdk.jctarget}"
                  output="build/main.cap"
-                 jar="build/main.jar"
                  sources="src"
                  aid="${aid.NDEF}"
                  version="1.0">
